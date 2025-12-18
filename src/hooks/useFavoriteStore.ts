@@ -1,6 +1,7 @@
 import type { Song } from '@/types/types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { toast } from 'sonner'
 
 interface FavoriteState {
   favorites: Song[]
@@ -14,8 +15,14 @@ export const useFavoriteStore = create<FavoriteState>()(
     (set, get) => ({
       favorites: [],
 
-      addFavorite: (song) =>
-        set((state) => ({ favorites: [...state.favorites, song] })),
+      addFavorite: (song) => {
+        set((state) => ({ favorites: [...state.favorites, song] }))
+
+        toast.success('Añadido a favoritos', {
+          description: `${song.title} - ${song.artist}`,
+          icon: '❤️',
+        })
+      },
 
       removeFavorite: (songId) =>
         set((state) => ({

@@ -6,20 +6,25 @@ import { MusicProvider } from './context/MusicContext'
 import FavoriteView from './views/FavoriteView'
 import PlayerBar from './components/layout/PlayerBar'
 import Navbar from './components/common/NavBar'
+import { Toaster } from 'sonner'
 
 function App() {
   return (
     <MusicProvider>
       <BrowserRouter>
-        <Navbar />
+        <div className="min-h-screen">
+          <Navbar />
+          <main className="container mx-auto">
+            <Routes>
+              <Route path="/" element={<HomeView />} />
+              <Route path="/favs" element={<FavoriteView />} />
+            </Routes>
+          </main>
+          <PlayerBar />
 
-        <Routes>
-          <Route path="/" element={<HomeView />} />
-          <Route path="/favs" element={<FavoriteView />} />
-        </Routes>
+          <Toaster position="bottom-right" richColors theme="dark" />
+        </div>
       </BrowserRouter>
-
-      <PlayerBar />
     </MusicProvider>
   )
 }
