@@ -16,46 +16,51 @@ const SongCard = ({ song }: { song: Song }) => {
   }
 
   return (
-    <Card className="group overflow-hidden border-none bg-background/50 hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-all duration-300 backdrop-blur-sm cursor-pointer">
-      <CardContent className="p-4">
-        <div className="relative aspect-square mb-4 overflow-hidden rounded-md shadow-md">
+    <Card
+      className="group relative overflow-hidden transition-all duration-300 cursor-pointer
+      border-zinc-200 bg-white
+      dark:border-zinc-800 dark:bg-zinc-900/50 
+      hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-xl hover:-translate-y-1"
+    >
+      <CardContent className="p-3 md:p-4">
+        <div className="relative aspect-square mb-3 overflow-hidden rounded-md shadow-inner bg-zinc-100 dark:bg-zinc-800">
           <img
             src={song.albumCover}
             alt={song.title}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
 
-          {/* Capa oscura que aparece al pasar el mouse */}
-          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
             <Button
-              onClick={() => playTrack(song)}
+              onClick={(e) => {
+                e.stopPropagation()
+                playTrack(song)
+              }}
               size="icon"
-              className="h-12 w-12 rounded-full bg-primary hover:scale-110 transition-transform cursor-pointer"
+              className="h-12 w-12 rounded-full bg-white text-black hover:scale-110 transition-transform"
             >
               <PlayIcon className="fill-current h-6 w-6" />
             </Button>
           </div>
 
-          <Button
+          <button
             onClick={toggleFavorite}
-            variant="ghost"
-            size="icon"
-            className={`absolute top-2 right-2 z-20 h-8 w-8 rounded-full transition-all duration-300 shadow-sm ${
+            className={`absolute top-2 right-2 z-20 flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 shadow-lg ${
               fav
-                ? 'opacity-100 bg-white/90 hover:bg-white text-red-500'
-                : 'opacity-0 group-hover:opacity-100 bg-black/40 hover:bg-red/60 text-white'
-            } cursor-pointer`}
+                ? 'bg-white opacity-100 scale-100'
+                : 'bg-black/40 opacity-0 group-hover:opacity-100 hover:bg-black/60'
+            }`}
           >
             <HeartIcon
-              className={`h-5 w-5 transition-transform active:scale-125 ${
-                fav ? 'fill-red-500' : ''
+              className={`h-4 w-4 transition-colors ${
+                fav ? 'fill-red-500 text-red-500' : 'text-white'
               }`}
             />
-          </Button>
+          </button>
         </div>
 
-        <div className="space-y-1">
-          <h3 className="font-bold text-foreground leading-tight truncate">
+        <div className="space-y-1 px-1">
+          <h3 className="font-bold text-foreground leading-tight truncate text-sm md:text-base tracking-tight">
             {song.title}
           </h3>
           <p className="text-xs text-muted-foreground font-medium truncate">

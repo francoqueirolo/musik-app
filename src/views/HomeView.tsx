@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useMusicSearch } from '../hooks/useMusicSearch'
 import SongCard from '../components/layout/SongCard'
+import SongCardSkeleton from '../components/layout/SongCardSkeleton'
 import { Button } from '@/components/ui/button'
 import type { Song } from '@/types/types'
 import { SearchIcon, Music2 } from 'lucide-react'
@@ -16,6 +17,10 @@ const HomeView = () => {
     e.preventDefault()
     setQuery(searchTerm)
   }
+
+  const skeletonCards = Array.from({ length: 15 }).map((_, i) => (
+    <SongCardSkeleton key={i} />
+  ))
 
   return (
     <div className="p-6 pb-32 max-w-7xl mx-auto min-h-screen transition-all duration-500">
@@ -50,37 +55,34 @@ const HomeView = () => {
         </Button>
       </form>
 
-      {loading && (
-        <div className="flex flex-col items-center justify-center py-20 gap-4">
-          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary"></div>
-          <p className="text-muted-foreground animate-pulse">
-            Sintonizando resultados...
-          </p>
+      {loading ? (
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 md:gap-8">
+          {skeletonCards}
         </div>
-      )}
-
-      {error && (
-        <div className="bg-destructive/10 border border-destructive/20 text-destructive p-4 rounded-lg text-center my-10">
-          {error}
-        </div>
-      )}
-
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-        {songs.map((song: Song) => (
-          <SongCard key={song.id} song={song} />
-        ))}
-      </div>
-
-      {!loading && songs.length === 0 && query && (
-        <div className="text-center py-20 flex flex-col items-center gap-2">
-          <Music2 className="h-12 w-12 text-muted-foreground/30" />
-          <p className="text-muted-foreground text-lg">
-            No encontramos nada para{' '}
-            <span className="text-foreground font-semibold italic">
-              "{query}"
-            </span>
-          </p>
-        </div>
+      ) : (
+        <>
+          {error && (
+            <div className="bg-destructive/10 border border-destructive/20 text-destructive p-4 rounded-lg text-center my-10">
+              {error}
+            </div>
+          )}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 md:gap-8">
+            {songs.map((song: Song) => (
+              <SongCard key={song.id} song={song} />
+            ))}
+          </div>
+          {!loading && songs.length === 0 && query && (
+            <div className="text-center py-20 flex flex-col items-center gap-2">
+              <Music2 className="h-12 w-12 text-muted-foreground/30" />
+              <p className="text-muted-foreground text-lg">
+                No encontramos nada para{' '}
+                <span className="text-foreground font-semibold italic">
+                  "{query}"
+                </span>
+              </p>
+            </div>
+          )}
+        </>
       )}
     </div>
   )
