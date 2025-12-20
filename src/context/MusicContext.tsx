@@ -30,7 +30,7 @@ export const useMusic = () => {
   const context = useContext(MusicContext)
 
   if (!context) {
-    throw new Error('useMusic debe usarse dentro de un MusicProvider')
+    throw new Error('useMusic should only be used within a MusicProvider')
   }
 
   return context

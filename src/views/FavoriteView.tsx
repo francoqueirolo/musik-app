@@ -1,4 +1,3 @@
-// src/views/FavoritesView.tsx
 import SongCard from '@/components/layout/SongCard'
 import { useFavoriteStore } from '@/hooks/useFavoriteStore'
 import { HeartOff } from 'lucide-react' // Un icono para el estado vacío

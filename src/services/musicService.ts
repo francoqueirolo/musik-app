@@ -9,21 +9,15 @@ export const musicService = {
     )
 
     if (!response.ok) throw new Error('Error en la petición')
-
     const data = await response.json()
 
-    console.log('Data cruda de la API:')
-    console.log({ data })
-
-    return data.results.map((data: SongData) => ({
-      id: data.trackId,
-      title: data.trackName,
-      artist: data.artistName,
-      albumCover: data.artworkUrl100,
-      audioUrl: data.previewUrl,
-      album: data.collectionName,
+    return data.results.map((item: SongData) => ({
+      id: item.trackId,
+      title: item.trackName,
+      artist: item.artistName,
+      albumCover: item.artworkUrl100,
+      audioUrl: item.previewUrl,
+      album: item.collectionName,
     }))
   },
-
-  getArtist: async (_id: number) => {},
 }

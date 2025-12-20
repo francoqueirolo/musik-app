@@ -6,12 +6,14 @@ import { Button } from '@/components/ui/button'
 import type { Song } from '@/types/types'
 import { SearchIcon, Music2 } from 'lucide-react'
 import { Input } from '@/components/ui/input'
+import { MusicPagination } from '@/components/common/MusicPagination'
 
 const HomeView = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [query, setQuery] = useState('')
 
-  const { songs, loading, error } = useMusicSearch(query)
+  const { songs, loading, error, currentPage, setCurrentPage, totalPages } =
+    useMusicSearch(query)
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -71,6 +73,18 @@ const HomeView = () => {
               <SongCard key={song.id} song={song} />
             ))}
           </div>
+
+          {songs.length > 0 && (
+            <MusicPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={(page) => {
+                setCurrentPage(page)
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }}
+            />
+          )}
+
           {!loading && songs.length === 0 && query && (
             <div className="text-center py-20 flex flex-col items-center gap-2">
               <Music2 className="h-12 w-12 text-muted-foreground/30" />
