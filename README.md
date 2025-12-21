@@ -74,4 +74,4 @@ export default defineConfig([
 
 ##  Demo
 
-[https://react-typescript-vite-demo.vercel.app/](https://react-typescript-vite-demo.vercel.app/)
+[https://musik-app-three.vercel.app/](https://musik-app-three.vercel.app//)
