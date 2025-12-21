@@ -5,7 +5,7 @@ import HomeView from './views/HomeView'
 import { MusicProvider } from './context/MusicContext'
 import FavoriteView from './views/FavoriteView'
 import PlayerBar from './components/layout/PlayerBar'
-import Navbar from './components/common/NavBar'
+import Navbar from './components/common/Navbar'
 import { Toaster } from 'sonner'
 
 function App() {
