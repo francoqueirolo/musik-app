@@ -72,6 +72,6 @@ export default defineConfig([
 ])
 ```
 
-##  Demo
+##  Demo website
 
 [https://musik-app-three.vercel.app/](https://musik-app-three.vercel.app//)

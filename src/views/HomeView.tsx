@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import { useMusicSearch } from '../hooks/useMusicSearch'
 import SongCard from '../components/layout/SongCard'
 import SongCardSkeleton from '../components/layout/SongCardSkeleton'
@@ -15,7 +15,7 @@ const HomeView = () => {
   const { songs, loading, error, currentPage, setCurrentPage, totalPages } =
     useMusicSearch(query)
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setQuery(searchTerm)
   }
